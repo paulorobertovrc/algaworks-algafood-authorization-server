@@ -22,12 +22,16 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
 
     @Override
     public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
-        clients.inMemory()
-                .withClient("algafood-web")
-                .secret(passwordEncoder.encode("senha123"))
-                .authorizedGrantTypes("password")
-                .scopes("write", "read")
-                .accessTokenValiditySeconds(60 * 60 * 6); // Equivalente a 6 horas, sendo que o padrão são 12 horas
+        clients
+                .inMemory()
+                    .withClient("algafood-web")
+                        .secret(passwordEncoder.encode("senha123"))
+                        .authorizedGrantTypes("password")
+                        .scopes("write", "read")
+                        .accessTokenValiditySeconds(60 * 60 * 6) // Equivalente a 6 horas, sendo que o padrão são 12 horas
+                .and()
+                    .withClient("checktoken")
+                        .secret(passwordEncoder.encode("check123"));
     }
 
     @Override
